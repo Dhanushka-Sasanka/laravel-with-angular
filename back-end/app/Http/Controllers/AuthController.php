@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Http\Requests\RegisterRequest;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller{
+
    /**
      * Create a new AuthController instance.
      *
      * @return void
+     * 
      */
-    public function __construct()
+    public function construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     /**
@@ -26,10 +29,23 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Email or password does\'t exist'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+     /**
+     * create a new user .
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $user = User::create($request->all());
+
+        return $this->login($request);
+
     }
 
     /**
@@ -77,7 +93,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user'=>auth()->user()->name
+            'user'=>auth()->user()->email
         ]);
     }
 }

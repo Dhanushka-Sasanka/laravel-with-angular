@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +18,8 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name',
+        'fullname',
+        'shopname',
         'email',
         'password',
     ];
@@ -61,4 +63,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+     /**
+     * set password encripted one.
+     *
+     * @return void
+     */
+    public function setPasswordAttribute($value)
+    {
+     $this->attributes['password'] = bcrypt($value);
+    }
+
 }
