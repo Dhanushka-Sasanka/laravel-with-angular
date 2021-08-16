@@ -1,0 +1,91 @@
+<notifier-container></notifier-container>
+<form class="form-signin" [formGroup]="registerForm" (ngSubmit)="register()">
+    <img class="mb-4" src="../../../assets/dist/img/et_logo.png" alt="">
+
+    <h1 class="h3 mb-3 font-weight-normal text-center">Sign up</h1>
+
+    <div class="form-group">
+        <input type="text" formControlName="fullname" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
+        <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+            <div *ngIf="f.fullname.errors.required">Name is required</div>
+        </div>
+
+       
+    </div>
+
+    <div class="form-group">
+        <label>Shop Name</label>
+        <input type="text" formControlName="shopname" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.shopname.errors }" />
+        <div *ngIf="submitted && f.shopname.errors" class="invalid-feedback">
+            <div *ngIf="f.shopname.errors.required">Shopname is required</div>
+            <div *ngIf="f.shopname.errors.minlength">
+                Shopname must be at least 6 characters
+            </div>
+            <div *ngIf="f.shopname.errors.maxlength">
+                Shopname must not exceed 20 characters
+            </div>
+        </div>
+       
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.email">Email is invalid</div>
+        </div>
+
+       
+        
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">
+                Password must be at least 6 characters
+            </div>
+            <div *ngIf="f.password.errors.maxlength">
+                Username must not exceed 40 characters
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" formControlName="confirmPassword" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+            <div *ngIf="f.confirmPassword.errors.required">
+                Confirm Password is required
+            </div>
+            <div *ngIf="f.confirmPassword.errors.matching">
+                Confirm Password does not match
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group form-check">
+        <input type="checkbox" formControlName="acceptTerms" class="form-check-input"
+            [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
+        <label for="acceptTerms" class="form-check-label">I have read and agree to the Terms</label>
+        <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">
+            Accept Terms is required
+        </div>
+    </div>
+
+    <div class="row p-2">
+        <button class="btn btn-primary btn-block" type="submit" (click)="onReset()">Sign up</button>
+    </div>
+
+    <div class="row text-center mt-2 ">
+        <a class="text-muted nav-link" routerLink="/login">Allready have an account?</a>
+    </div>
+</form>

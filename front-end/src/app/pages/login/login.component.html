@@ -1,0 +1,23 @@
+
+<notifier-container></notifier-container>
+<form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
+    <img class="mb-4" src="../../../assets/dist/img/et_logo.png" alt="">
+
+    <h1 class="h3 mb-3 font-weight-normal text-center">Login in</h1>
+    
+    <input type="email" id="inputEmail" class="form-control mb-3" formControlName="email" placeholder="Email" required autofocus>
+    
+    <input type="password" id="inputPassword" formControlName="password" class="form-control" placeholder="Password" required>
+    <div class="checkbox ">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <div class="row p-2">
+        <button class="btn btn-primary btn-block" type="submit" [disabled]="!loginForm.valid">Sign in</button>
+    </div>
+
+    <div class="row text-center mt-2 ">
+        <a class="text-muted nav-link" routerLink="/register">Don't have an account?</a>
+    </div>
+</form>
