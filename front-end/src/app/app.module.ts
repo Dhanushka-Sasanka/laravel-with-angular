@@ -1,3 +1,4 @@
+import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { NotificationModule } from './notification.module';
 import { NotificationService } from './@business/services/notification.service';
 import { AuthenticationService } from './auth/authentication.service';
@@ -26,7 +27,8 @@ import { AuthService } from './auth/auth.service';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NotificationModule
+    NotificationModule,
+    DashboardModule
   ],
   providers: [AuthenticationService,NotificationService ,AuthService ],
   bootstrap: [AppComponent]

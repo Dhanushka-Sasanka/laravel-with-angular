@@ -18,8 +18,8 @@ export class AuthenticationService {
   private jwtHelper = new   JwtHelperService();
 
   private iss = {
-    login: `${this.host}/api/login`,
-    signup: `${this.host}/api/signup`
+    login: `${this.host}/api/auth/login`,
+    register: `${this.host}/api/auth/register`
   };
 
   constructor(private http: HttpClient) { }
@@ -80,17 +80,22 @@ export class AuthenticationService {
   isValid() {
     this.loadToken();
     const token = this.getToken();
-    if (token != null && token !== '') {
+    // console.log("token", token);
+    if (token) {
       const payload = this.payload(token);
       if (payload) {
-        return Object.values(this.iss).indexOf(payload.iss) > -1 ? true : false;
+        // console.log(payload);
+        // console.log(this.iss);
+        // console.log(Object.values(this.iss).indexOf(payload.iss) > -1);
+        return (Object.values(this.iss).indexOf(payload.iss) > -1) ? true : false;
       }
     }
     return false;
   }
 
-  payload(token:any) {
+  payload(token:string) {
     const payload = token.split('.')[1];
+    // console.log(payload);
     return this.decode(payload);
   }
 
@@ -99,6 +104,7 @@ export class AuthenticationService {
   }
 
   loggedIn() {
+    // console.log(this.isValid());
     return this.isValid();
   }
 

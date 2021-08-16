@@ -28,7 +28,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // if (!this.authentication.loggedIn()) {
+    //   console.log(this.authentication.loggedIn());
+    //   this.router.navigateByUrl('/dashboard')
+    // }
+  }
 
   login() {
 
@@ -42,8 +47,10 @@ export class LoginComponent implements OnInit {
       console.log(responce);
       this.loggingData = responce;
       this.authentication.saveToken(this.loggingData.access_token);
-      this.authentication.loggedInUserName = this.loggingData.user;
-    
+      const tempUser = new User();
+      tempUser.email = this.loggingData.user;
+      this.authentication.addUserToLocalCache(tempUser);
+      this.auth.changeUserDetails(tempUser);
       this.auth.changeAuthStatus(true);
       this.router.navigateByUrl('/dashboard')
 

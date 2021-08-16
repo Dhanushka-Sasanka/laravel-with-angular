@@ -1,3 +1,4 @@
+import { NotificationModule } from './../../notification.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +12,8 @@ import { DashboardComponent } from './dashboard.component';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    NotificationModule
   ]
 })
 export class DashboardModule { }

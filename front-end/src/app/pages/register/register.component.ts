@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/auth/auth.service';
 import { ShopOwner } from './../../@business/model/shop_owner';
 import { NotificationType } from './../../@business/enum/notificaiton-type.enum';
 import { User } from './../../@business/model/user';
@@ -18,13 +19,14 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  error:any;
+  error: any;
   submitted = false;
 
-  constructor(private auth: AuthenticationService,
+  constructor(private authenticationService: AuthenticationService,
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private auth: AuthService) {
 
 
     this.registerForm = this.formBuilder.group(
@@ -119,8 +121,8 @@ export class RegisterComponent implements OnInit {
     shopOwner.password = password;
     shopOwner.confirmPassword = confirmPassword;
     shopOwner.acceptTerms = acceptTerms;
- 
-    this.auth.register(shopOwner).subscribe(responce => { this.handleResponce(responce) }, error => { this.handleError(error) });
+
+    this.authenticationService.register(shopOwner).subscribe(responce => { this.handleResponce(responce) }, error => { this.handleError(error) });
 
   }
 
@@ -129,16 +131,16 @@ export class RegisterComponent implements OnInit {
     this.error = error.error.errors;
     this.notificationService.notify(NotificationType.ERROR, this.error);
     // this.error.forEach((element: string) => {
-     
+
     // });
-    
+
 
   }
   get f(): { [key: string]: AbstractControl } {
     return this.registerForm.controls;
   }
 
-  
+
 
   onReset(): void {
     this.submitted = false;
@@ -147,10 +149,13 @@ export class RegisterComponent implements OnInit {
 
   handleResponce(responce: any) {
 
-    this.auth.saveToken(responce.access_token);
-    this.auth.loggedInUserName = responce.email;
+    this.authenticationService.saveToken(responce.access_token);
+    const tempUser = new User();
+    tempUser.email = responce.email;
+    this.authenticationService.addUserToLocalCache(tempUser);
+    this.auth.changeUserDetails(tempUser);
     this.router.navigateByUrl('/dashboard')
-  
-    }
+
+  }
 
 }
