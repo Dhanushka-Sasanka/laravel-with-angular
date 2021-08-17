@@ -15,7 +15,12 @@ class CreateCustomerComplainsTable extends Migration
     {
         Schema::create('customer_complains', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('customerAge');
+            $table->string('customerAddress');
+            $table->text('problemDescription');
+            $table->string('problemStatus');
+            $table->timestamp('date');
+            $table->integer('createdProblemCreatedBy');
         });
     }
 
