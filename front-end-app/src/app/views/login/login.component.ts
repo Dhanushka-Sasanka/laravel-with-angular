@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     const user = new User();
     user.email = email;
     user.password = password;
-    this.authentication.login(user).subscribe(responce => {
+    this.authentication.login(user).subscribe((responce) => {
 
         console.log(responce);
         this.loggingData = responce;
@@ -64,9 +64,9 @@ export class LoginComponent implements OnInit {
 
   handleError(error: any) {
 
-    this.error = error.error.error;
-    console.log(this.error);
-    this.notificationService.notify(NotificationType.ERROR, this.error);
+    this.error = error.errors;
+   alert(this.error);
+    this.notificationService.notify(NotificationType.ERROR, this.error.message);
 
   }
 

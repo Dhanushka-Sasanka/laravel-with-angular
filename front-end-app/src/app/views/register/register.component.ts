@@ -132,7 +132,7 @@ export class RegisterComponent implements OnInit {
   handleError(error: any) {
 
     this.error = error.error.errors;
-    this.notificationService.notify(NotificationType.ERROR, this.error);
+    this.notificationService.notify(NotificationType.ERROR, error.error.message);
     // this.error.forEach((element: string) => {
 
     // });

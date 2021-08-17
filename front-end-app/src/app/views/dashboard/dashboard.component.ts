@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import {NotificationType} from '../../@business/enum/notificaiton-type.enum';
+import {AuthService} from '../../auth/auth.service';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../../auth/authentication.service';
+import {NotificationService} from '../../@business/services/notification.service';
 
 @Component({
   templateUrl: 'dashboard.component.html'
@@ -384,5 +389,17 @@ export class DashboardComponent implements OnInit {
       this.mainChartData2.push(this.random(80, 100));
       this.mainChartData3.push(65);
     }
+
+    this.auth.userDetails.subscribe((value: any) => {
+      this.notification.notify(NotificationType.SUCCESS, `Log as ${value.email}`);
+
+    });
+
+  }
+
+  constructor(private auth: AuthService,
+              private router: Router,
+              private authenticationService: AuthenticationService,
+              private notification: NotificationService) {
   }
 }

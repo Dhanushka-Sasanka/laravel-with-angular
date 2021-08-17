@@ -7,6 +7,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import {NotificationModule} from '../../notification.module';
+import {NotificationService} from '../../@business/services/notification.service';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import {NotificationModule} from '../../notification.module';
     ButtonsModule.forRoot(),
     NotificationModule
   ],
-  declarations: [ DashboardComponent ]
+  declarations: [ DashboardComponent ],
+  providers: [NotificationService]
 })
 export class DashboardModule { }
