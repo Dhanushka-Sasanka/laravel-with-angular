@@ -10,7 +10,7 @@ class CustomerComplainController extends Controller
 
     public function createCustomerComplain(Request $request){
 
-        CusotomerComplain::create([
+       $customerComplain =  CusotomerComplain::create([
 
             customerName => $request->customerName,
             customerAge => $request->customerAge,
@@ -20,5 +20,7 @@ class CustomerComplainController extends Controller
             problemStatus => $request->problemStatus,
             createdProblemCreatedBy => auth()->user()-id
         ]);
+
+        return back();
     }
 }
